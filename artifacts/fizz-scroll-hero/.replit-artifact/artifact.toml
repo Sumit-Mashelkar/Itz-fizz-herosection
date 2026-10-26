@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Fizz Scroll Hero"
+description = "A polished single-page recreation of a scroll-driven beverage hero animation, with an animated headline, impact metrics, and a central visual that responds smoothly to scroll."
+version = "1.0.0"
+id = "artifacts/fizz-scroll-hero"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23674
+
+[services.development]
+run = "pnpm --filter @workspace/fizz-scroll-hero run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/fizz-scroll-hero", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/fizz-scroll-hero/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23674"
+BASE_PATH = "/"
